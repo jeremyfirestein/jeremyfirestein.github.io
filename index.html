@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jeremy Firestein | GIS Portfolio</title>
+<meta name="description" content="GIS portfolio of Jeremy Firestein: spatial analysis, cartography, and dashboards built from Chicago public data.">
+<meta property="og:title" content="Jeremy Firestein | GIS Portfolio">
+<meta property="og:description" content="Where Chicago owns land near transit, plus a Chicago 311 service performance dashboard.">
+<meta property="og:image" content="https://jeremyfirestein.github.io/assets/etod-map-share.jpg">
+<meta property="og:url" content="https://jeremyfirestein.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23F6D8A8'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2301665E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+  :root {
+    --paper: #f5f6f4;
+    --ink: #1e2b2f;
+    --muted: #55656a;
+    --rule: #d6dcda;
+    --teal: #01665e;
+    --teal-light: #5ab4ac;
+    --zone: #f6d8a8;
+    --zone-soft: #fbecd3;
+    --lake: #d3d8da;
+    --head: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+    --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  a { color: var(--teal); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible, iframe:focus-visible { outline: 3px solid var(--teal-light); outline-offset: 3px; border-radius: 2px; }
+  img { display: block; max-width: 100%; height: auto; }
+
+  .wrap { max-width: 1080px; margin-inline: auto; padding-inline: 24px; }
+
+  /* Header */
+  .masthead { padding-block: 56px 36px; }
+  .masthead h1 {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: clamp(44px, 7vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+  }
+  .masthead p { margin: 0; max-width: 60ch; font-size: 19px; color: var(--muted); }
+  .links { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 26px; margin: 22px 0 0; padding: 0; font-weight: 600; }
+
+  /* Section headings */
+  h2 {
+    font-family: var(--head);
+    font-weight: 600;
+    font-size: clamp(30px, 4vw, 40px);
+    line-height: 1.1;
+    margin: 0 0 12px;
+  }
+  h3 {
+    font-family: var(--head);
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.15;
+    margin: 0 0 6px;
+  }
+  section { padding-block: 56px; border-top: 1px solid var(--rule); }
+  .intro { max-width: 68ch; margin: 0 0 22px; }
+  .meta { font-size: 15px; color: var(--muted); margin: 0; max-width: 72ch; }
+  .meta strong { color: var(--ink); font-weight: 600; }
+
+  /* Featured map */
+  .featured { border-top: 0; padding-block-start: 0; }
+  .plate {
+    margin: 0 0 32px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    padding: 10px;
+  }
+  .plate a { display: block; }
+  .plate figcaption { font-size: 14px; color: var(--muted); padding: 10px 4px 2px; }
+  .featured-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    gap: 40px;
+    align-items: start;
+  }
+  /* The findings sit inside a tan band, the same color as the half-mile transit zone on the map */
+  .findings {
+    background: var(--zone-soft);
+    border-left: 6px solid var(--zone);
+    padding: 22px 26px;
+    margin: 0;
+  }
+  .findings div { display: grid; grid-template-columns: 6.2em 1fr; gap: 14px; align-items: baseline; padding: 9px 0; }
+  .findings div + div { border-top: 1px solid #ecd6b1; }
+  .findings dt {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--teal);
+    font-variant-numeric: tabular-nums;
+  }
+  .findings dd { margin: 0; font-size: 16px; line-height: 1.45; }
+  .actions { margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; }
+  .button {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 3px;
+  }
+  .button:hover { background: #014d47; }
+  .button:focus-visible { outline: 3px solid var(--teal-light); outline-offset: 3px; }
+
+  /* Dashboard */
+  .embed {
+    width: min(1202px, calc(100vw - 32px));
+    margin: 26px 0 14px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid var(--rule);
+    background: #fff;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .embed iframe { display: block; width: 1200px; height: 1340px; border: 0; }
+  .embed-note { font-size: 14px; color: var(--muted); margin: 0; }
+  .mobile-only { display: none; }
+
+  /* Earlier work */
+  .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 26px; }
+  .pair figure { margin: 0 0 14px; border: 1px solid var(--rule); background: #fff; padding: 8px; }
+  .pair p { margin: 0 0 8px; font-size: 16px; }
+
+  /* Experience and skills */
+  .two-col { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 48px; }
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 52px 1fr; gap: 18px; padding: 18px 0; border-top: 1px solid var(--rule); }
+  .timeline li:first-child { border-top: 0; padding-top: 4px; }
+  .when { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; margin: 0 0 6px !important; }
+  .timeline h3 { font-size: 21px; margin: 0; }
+  .org { margin: 2px 0 0; color: var(--teal); font-weight: 600; font-size: 15px; }
+  .timeline p { margin: 0; font-size: 16px; }
+  .skills h3 { font-size: 20px; margin: 18px 0 4px; }
+  .skills h3:first-of-type { margin-top: 4px; }
+  .skills p { margin: 0; font-size: 16px; color: var(--muted); }
+
+  /* Sticky section nav: always shows what is further down the page */
+  .sitenav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(245, 246, 244, 0.94);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .sitenav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px 26px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  .sitenav ul::-webkit-scrollbar { display: none; }
+  .sitenav a { display: block; padding: 13px 0 11px; font-weight: 600; font-size: 15px; color: var(--muted); text-decoration: none; border-bottom: 3px solid transparent; }
+  .sitenav a:hover { color: var(--ink); }
+  .sitenav a[aria-current="true"] { color: var(--teal); border-bottom-color: var(--teal); }
+  [id] { scroll-margin-top: 64px; }
+  .sitenav .short { display: none; }
+  @media (max-width: 520px) {
+    .sitenav .full { display: none; }
+    .sitenav .short { display: inline; }
+    .sitenav ul { gap: 4px 20px; }
+  }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+  /* Company logos; the initials show only if a logo file is missing */
+  .logo {
+    position: relative; width: 52px; height: 52px; flex: none;
+    display: grid; place-items: center;
+    background: #fff; border: 1px solid var(--rule); border-radius: 6px;
+    font-family: var(--head); font-weight: 700; font-size: 18px; color: var(--teal);
+    overflow: hidden;
+  }
+  .logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 3px; background: #fff; }
+  .logo.bleed img { padding: 0; object-fit: cover; }
+  .school { display: grid; grid-template-columns: 52px 1fr; gap: 16px; align-items: start; margin-top: 6px; }
+  .school p { margin: 0; }
+
+  footer { border-top: 1px solid var(--rule); padding-block: 28px 48px; font-size: 15px; color: var(--muted); }
+  footer p { margin: 0 0 4px; }
+
+  @media (max-width: 860px) {
+    .featured-body, .two-col { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media (max-width: 700px) {
+    body { font-size: 16px; }
+    .masthead { padding-block: 36px 26px; }
+    section { padding-block: 40px; }
+    .pair { grid-template-columns: 1fr; }
+    .timeline li { grid-template-columns: 44px 1fr; gap: 14px; }
+    .logo { width: 44px; height: 44px; font-size: 16px; }
+    .findings { padding: 18px 18px; }
+    .findings div { grid-template-columns: 5.2em 1fr; }
+    .findings dt { font-size: 26px; }
+    .embed { display: none; }
+    .desktop-only { display: none; }
+    .mobile-only { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap masthead">
+  <h1>Jeremy Firestein</h1>
+  <p>GIS professional in Chicago with nine years of spatial analysis, mapping, and GIS data work in public safety, telecommunications, and engineering.</p>
+  <ul class="links">
+    <li><a href="files/Jeremy-Firestein-Resume.pdf">Resume (PDF)</a></li>
+    <li><a href="https://www.linkedin.com/in/jeremy-firestein/">LinkedIn</a></li>
+    <li><a href="mailto:JeremyFirestein@gmail.com">JeremyFirestein@gmail.com</a></li>
+  </ul>
+</header>
+
+<nav class="sitenav" aria-label="Sections on this page">
+  <div class="wrap">
+    <ul>
+      <li><a href="#etod"><span class="full">Transit map</span><span class="short">Map</span></a></li>
+      <li><a href="#dash"><span class="full">311 dashboard</span><span class="short">Dashboard</span></a></li>
+      <li><a href="#earlier"><span class="full">Earlier maps</span><span class="short">Earlier</span></a></li>
+      <li><a href="#experience"><span class="full">Experience and skills</span><span class="short">Experience</span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <section class="wrap featured" aria-labelledby="etod">
+    <figure class="plate">
+      <a href="files/Where-Chicago-Owns-Land-Near-Transit.pdf">
+        <img src="assets/etod-map.jpg" width="1800" height="1165"
+             alt="Map of Chicago showing city-owned parcels within a half mile of CTA and Metra rail stations, concentrated on the West Side and along the South Side Green and Red Lines, with an inset of the Green Line corridor from 47th to 63rd Street and a bar chart of the top 10 community areas.">
+      </a>
+      <figcaption>Select the map to open the full-resolution PDF.</figcaption>
+    </figure>
+
+    <div class="featured-body">
+      <div>
+        <h2 id="etod">Where Chicago Owns Land Near Transit</h2>
+        <p class="intro">Chicago's Connected Communities Ordinance extended transit-oriented development zoning benefits to land within half a mile of every CTA and Metra rail station. I mapped which city-owned parcels fall inside those areas and which are zoned in a way that generally allows housing.</p>
+        <p class="meta"><strong>Method.</strong> Filtered the City-Owned Land Inventory to parcels the City still owns, then removed City facilities, parks and open space, other-agency land, and neighbor-sale programs. Parcels with no managing department were spot-checked against aerial imagery. Buffered every rail station by 2,640 feet, joined zoning by location, and summarized results by community area and by station.</p>
+        <p class="meta" style="margin-top:12px"><strong>Tools and data.</strong> ArcGIS Pro (buffer, spatial join, summarize within, Arcade labels). City of Chicago Data Portal and RTA.</p>
+        <div class="actions">
+          <a class="button" href="files/Where-Chicago-Owns-Land-Near-Transit.pdf">Download the map (PDF, 1.9 MB)</a>
+        </div>
+      </div>
+
+      <dl class="findings" aria-label="Key findings">
+        <div><dt>5,037</dt><dd>city-owned parcels are within ½ mile of CTA or Metra rail, 54% of the 9,355 analyzed.</dd></div>
+        <div><dt>4,548</dt><dd>of them (90%) are in zoning that generally allows housing.</dd></div>
+        <div><dt>75%</dt><dd>of that housing-compatible land is not assigned to any City department.</dd></div>
+        <div><dt>73%</dt><dd>of it sits in 10 community areas, all on the South and West Sides.</dd></div>
+        <div><dt>6 of 8</dt><dd>stations with the most nearby city land are on the Green Line.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="dash">
+    <h2 id="dash">Chicago 311 Service Performance</h2>
+    <p class="intro">How quickly the City closed nearly 300,000 311 service requests from April through June 2026, broken down by request category, community area, and police district. Filter by category, or select a community area on the map to filter the KPIs and the category chart.</p>
+    <p class="meta"><strong>Tools and data.</strong> Tableau Public. 311 Service Requests from the City of Chicago Data Portal API, joined to community area boundaries.</p>
+
+    <!-- To point the embed at a renamed workbook, change only the part after /views/ in both links below. -->
+    <div class="embed desktop-only">
+      <iframe src="https://public.tableau.com/views/311ServiceRequestsApril-Jun2026WORKING/311Dashboard?:embed=y&amp;:showVizHome=no&amp;:display_count=no&amp;:toolbar=bottom"
+              title="Interactive Tableau dashboard: Chicago 311 service performance, April to June 2026"
+              loading="lazy" allowfullscreen></iframe>
+    </div>
+    <p class="embed-note desktop-only">On narrower windows, scroll sideways inside the frame to see the whole dashboard.</p>
+    <div class="actions">
+      <a class="button mobile-only" href="https://public.tableau.com/app/profile/jeremy.firestein/viz/311ServiceRequestsApril-Jun2026WORKING/311Dashboard">Open the dashboard on Tableau Public</a>
+      <a class="desktop-only" href="https://public.tableau.com/app/profile/jeremy.firestein/viz/311ServiceRequestsApril-Jun2026WORKING/311Dashboard">Open the dashboard on Tableau Public</a>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="earlier">
+    <h2 id="earlier">Earlier work, 2020 to 2021</h2>
+    <p class="intro">Two maps made in ArcMap from Cook County and federal open data.</p>
+    <div class="pair">
+      <article>
+        <figure>
+          <a href="files/Address-Density-Jefferson-Township.pdf"><img src="assets/address-density.jpg" width="1200" height="928" loading="lazy"
+             alt="Grid map of address counts near the North Shore Channel and Chicago River confluence in Jefferson Township, with the highest counts along the channel."></a>
+        </figure>
+        <h3>Address density near the North Shore Channel</h3>
+        <p>Addresses counted per grid cell within a one-mile buffer of the North Shore Channel and Chicago River confluence in Jefferson Township. Cook County GIS Hub data.</p>
+        <a href="files/Address-Density-Jefferson-Township.pdf">Open the PDF (7.9 MB)</a>
+      </article>
+      <article>
+        <figure>
+          <a href="files/HUD-Insured-Buildings-North-Chicago-Township.pdf"><img src="assets/hud-buildings.jpg" width="1200" height="928" loading="lazy"
+             alt="Map of HUD-insured multi-tenant buildings in North Chicago Township, sized by total units, with a City of Chicago locator inset."></a>
+        </figure>
+        <h3>HUD-insured multi-tenant buildings</h3>
+        <p>Government-assisted multi-tenant buildings in North Chicago Township, sized by total units, with a citywide locator map. U.S. Department of Housing and Urban Development data.</p>
+        <a href="files/HUD-Insured-Buildings-North-Chicago-Township.pdf">Open the PDF (2.8 MB)</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="experience">
+    <div class="two-col">
+      <div>
+        <h2 id="experience">Experience</h2>
+        <ol class="timeline">
+          <li>
+            <span class="logo bleed"><img src="assets/logos/clarity-partners.png" alt="" onerror="this.remove()">CP</span>
+            <div>
+              <h3>GIS Consultant</h3>
+              <p class="org">Clarity Partners, City of Chicago public safety</p>
+              <p class="when">Feb 2023 to present</p>
+              <p>Compiled and standardized a 600,000+ record address dataset for the City's new computer-aided dispatch system. Automated district and beat map exports with Python, and maintain versioned feature services in ArcGIS Online and Enterprise.</p>
+            </div>
+          </li>
+          <li>
+            <span class="logo"><img src="assets/logos/wyyerd-fiber.png" alt="" onerror="this.remove()">WF</span>
+            <div>
+              <h3>GIS Specialist</h3>
+              <p class="org">Wyyerd Fiber</p>
+              <p class="when">Jul 2022 to Feb 2023</p>
+              <p>Automated construction progress reporting through an API and SQL calculations, built leadership dashboards, and administered ArcGIS Online.</p>
+            </div>
+          </li>
+          <li>
+            <span class="logo"><img src="assets/logos/ledcor.png" alt="" onerror="this.remove()">L</span>
+            <div>
+              <h3>GIS Analyst</h3>
+              <p class="org">Ledcor Technical Services</p>
+              <p class="when">Jul 2018 to Jul 2022</p>
+              <p>Worked with project managers and first-time GIS users to build dashboards and web apps, built FME workflows for bulk KMZ conversion, and led a three-person team post-processing field GPS data.</p>
+            </div>
+          </li>
+          <li>
+            <span class="logo"><img src="assets/logos/construction-cad-solutions.png" alt="" onerror="this.remove()">CCS</span>
+            <div>
+              <h3>GIS Technician</h3>
+              <p class="org">Construction CAD Solutions</p>
+              <p class="when">Apr 2017 to Jul 2018</p>
+              <p>Performed wetland and protected-lands reviews, extracted features from LiDAR, and drafted fiber networks in AutoCAD.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <div class="skills">
+        <h2 id="skills">Skills</h2>
+        <h3>GIS</h3>
+        <p>ArcGIS Pro, ArcGIS Online and Enterprise, ArcSDE, QGIS, AutoCAD</p>
+        <h3>Automation</h3>
+        <p>Python and ArcPy, FME, ModelBuilder, APIs, Windows Task Scheduler</p>
+        <h3>Data</h3>
+        <p>Oracle SQL, geocoding and address standardization, data QA, Excel</p>
+        <h3>Visualization</h3>
+        <p>ArcGIS Dashboards, Experience Builder, Tableau, print map layouts</p>
+        <h3>Education</h3>
+        <div class="school">
+          <span class="logo bleed"><img src="assets/logos/neiu.png" alt="" onerror="this.remove()">NEIU</span>
+          <p>B.A. Environmental Studies, Northeastern Illinois University, cum laude, minors in Geography and GIS. Python and SQL certificates, Oakton Community College.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Maps and analysis by Jeremy Firestein. All project data comes from the public sources listed with each project.</p>
+  <p><a href="mailto:JeremyFirestein@gmail.com">JeremyFirestein@gmail.com</a></p>
+</footer>
+
+<script>
+  // Underline the nav item for the section currently at the top of the window.
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.sitenav a'));
+    var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var active = -1;
+      targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top <= 160) active = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) active = targets.length - 1;
+      links.forEach(function (a, i) {
+        if (i === active) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  })();
+</script>
+</body>
+</html>
