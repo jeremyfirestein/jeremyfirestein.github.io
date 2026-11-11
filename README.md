@@ -7,3 +7,4 @@ Source for https://jeremyfirestein.github.io
 - `files/`: full PDF maps and resume
 
 All project data comes from public sources: City of Chicago Data Portal, RTA, Cook County GIS Hub, and U.S. HUD.
+Last updated November 2026.
