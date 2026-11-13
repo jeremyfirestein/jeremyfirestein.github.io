@@ -157,6 +157,8 @@
   .two-col { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 48px; }
   .timeline { list-style: none; margin: 0; padding: 0; }
   .timeline li { display: grid; grid-template-columns: 52px 1fr; gap: 18px; padding: 18px 0; border-top: 1px solid var(--rule); }
+  .timeline .duties { margin: 6px 0 0; padding-left: 18px; }
+  .timeline .duties li { display: list-item; padding: 3px 0; border-top: 0; }
   .timeline li:first-child { border-top: 0; padding-top: 4px; }
   .when { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; margin: 0 0 6px !important; }
   .timeline h3 { font-size: 21px; margin: 0; }
@@ -331,7 +333,12 @@
               <h3>GIS Consultant</h3>
               <p class="org">Clarity Partners, City of Chicago public safety</p>
               <p class="when">Feb 2023 to present</p>
-              <p>Compiled and standardized a 600,000+ record address dataset for the City's new computer-aided dispatch system. Designed the special-events schema and built dashboards that track events, squad car locations, and calls for service, along with crime-tracking dashboards by district and neighborhood. Automated district and beat map exports with Python. Deliver PDF maps for city aldermen and public safety staff, and maintain versioned feature services in ArcGIS Online and Enterprise.</p>
+              <ul class="duties">
+                <li>Took ownership of the City's four-year address point project, building a 600,000+ record address dataset for the new computer-aided dispatch system</li>
+                <li>Designed the special-events schema and built dashboards tracking events, squad cars, and calls for service</li>
+                <li>Built crime-tracking dashboards by district and neighborhood</li>
+                <li>Automated multi-layout PDF map exports with Python</li>
+              </ul>
             </div>
           </li>
           <li>
@@ -340,7 +347,12 @@
               <h3>GIS Specialist</h3>
               <p class="org">Wyyerd Fiber</p>
               <p class="when">Jul 2022 to Feb 2023</p>
-              <p>Automated construction progress reporting through an API and SQL calculations and built leadership dashboards. Owned the construction-progress dashboard for stakeholders, learning the workflow from directors before automating it with ModelBuilder and the API. Tracked construction work orders and permit status, and administered an ArcGIS Online organization of 15 to 20 users.</p>
+              <ul class="duties">
+                <li>Automated construction progress reporting with an API, SQL, and ModelBuilder</li>
+                <li>Built dashboards for company leadership and stakeholders</li>
+                <li>Tracked construction work orders and permit status</li>
+                <li>Managed an ArcGIS Online organization of 15 to 20 users</li>
+              </ul>
             </div>
           </li>
           <li>
@@ -349,7 +361,12 @@
               <h3>GIS Analyst</h3>
               <p class="org">Ledcor Technical Services</p>
               <p class="when">Jul 2018 to Jul 2022</p>
-              <p>Worked with project managers and first-time GIS users to build dashboards and web apps, built FME workflows for bulk KMZ conversion, and led a three-person team post-processing field GPS data. On a fiber-to-the-home pre-construction review, cleaned, validated, and loaded field GPS data into the client's schema. Published per-project feature services for designers working in AutoCAD, reviewed their designs for attribute accuracy (handholes, poles, fiber counts, cable sizes, footage), and merged LiDAR imagery into raster basemaps.</p>
+              <ul class="duties">
+                <li>Served as the go-to GIS resource for project managers, gathering their needs and building the dashboards and web apps their projects ran on</li>
+                <li>Led a three-person team cleaning and loading field GPS data for a fiber-to-the-home project</li>
+                <li>Published feature services for designers and checked their designs for attribute errors</li>
+                <li>Built FME workflows to bulk-convert KMZ files</li>
+              </ul>
             </div>
           </li>
           <li>
@@ -358,7 +375,12 @@
               <h3>GIS Technician</h3>
               <p class="org">Construction CAD Solutions</p>
               <p class="when">Apr 2017 to Jul 2018</p>
-              <p>Performed wetland and protected-lands reviews, extracted features from LiDAR, and drafted fiber networks in AutoCAD. Turned redlines and design managers' route instructions into plan sheets for permit submittals to IDOT and city permitting departments, and revised drawings after design and permit review.</p>
+              <ul class="duties">
+                <li>Performed wetland and protected-lands reviews for proposed project sites</li>
+                <li>Turned redlines into AutoCAD plan sheets for IDOT and city permit submittals</li>
+                <li>Collected GPS points at natural gas utility construction sites</li>
+                <li>Extracted features from LiDAR data</li>
+              </ul>
             </div>
           </li>
         </ol>
