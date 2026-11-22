@@ -11,9 +11,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jeremy Firestein | GIS Portfolio</title>
-<meta name="description" content="GIS portfolio of Jeremy Firestein: spatial analysis, cartography, and dashboards built from Chicago public data.">
+<meta name="description" content="GIS portfolio of Jeremy Firestein: spatial analysis, cartography, and dashboards built from Chicago and Illinois public data.">
 <meta property="og:title" content="Jeremy Firestein | GIS Portfolio">
-<meta property="og:description" content="Where Chicago owns land near transit, plus a Chicago 311 service performance dashboard.">
+<meta property="og:description" content="Where Chicago owns land near transit, a Chicago 311 service performance dashboard, and a map of Illinois broadband gaps in primary care shortage counties.">
 <meta property="og:image" content="https://jeremyfirestein.github.io/assets/etod-map-share.jpg">
 <meta property="og:url" content="https://jeremyfirestein.github.io/">
 <meta name="twitter:card" content="summary_large_image">
@@ -241,6 +241,7 @@
     <ul>
       <li><a href="#etod"><span class="full">Transit map</span><span class="short">Map</span></a></li>
       <li><a href="#dash"><span class="full">311 dashboard</span><span class="short">Dashboard</span></a></li>
+      <li><a href="#broadband"><span class="full">Broadband map</span><span class="short">Broadband</span></a></li>
       <li><a href="#earlier"><span class="full">Earlier maps</span><span class="short">Earlier</span></a></li>
       <li><a href="#experience"><span class="full">Experience and skills</span><span class="short">Experience</span></a></li>
     </ul>
@@ -294,6 +295,36 @@
     <div class="actions">
       <a class="button mobile-only" href="https://public.tableau.com/app/profile/jeremy.firestein/viz/311ServiceRequestsApril-Jun2026WORKING/311Dashboard">Open the dashboard on Tableau Public</a>
       <a class="desktop-only" href="https://public.tableau.com/app/profile/jeremy.firestein/viz/311ServiceRequestsApril-Jun2026WORKING/311Dashboard">Open the dashboard on Tableau Public</a>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="broadband">
+    <figure class="plate">
+      <a href="files/Crossing-the-Digital-Divide-Illinois.pdf">
+        <img src="assets/digital-divide-map.jpg" width="1800" height="1391" loading="lazy"
+             alt="Map of Illinois counties designated countywide as primary care shortage areas, shaded by the number of unserved and underserved BEAD-eligible broadband locations, darkest in Lee, Ogle, and LaSalle counties in the north and Clinton and Washington counties in the south, with a table of the top 10 counties.">
+      </a>
+      <figcaption>Select the map to open the full-resolution PDF.</figcaption>
+    </figure>
+
+    <div class="featured-body">
+      <div>
+        <h2 id="broadband">Crossing the Digital Divide</h2>
+        <p class="intro">Where Illinois homes and businesses that lack reliable broadband are also in counties with too few primary care providers. These are places where better internet access could help residents reach care through telehealth.</p>
+        <p class="meta"><strong>Method.</strong> Matched 149,743 of the state's 160,209 BEAD-eligible locations (classified as unserved or underserved) to counties using FCC location data, then compared them with HRSA primary care Health Professional Shortage Area designations. Only counties designated as shortage areas countywide are shown; smaller shortage areas within counties are not. Eleven of the 40 counties have designations HRSA has proposed for withdrawal, but they are still officially designated, so they are included.</p>
+        <p class="meta" style="margin-top:12px"><strong>Tools and data.</strong> ArcGIS Pro. Illinois Office of Broadband (DCEO) BEAD-eligible locations, FCC National Broadband Map (June 30, 2026), HRSA Primary Care HPSA data, and U.S. Census Bureau TIGER/Line county boundaries.</p>
+        <div class="actions">
+          <a class="button" href="files/Crossing-the-Digital-Divide-Illinois.pdf">Download the map (PDF, 0.9 MB)</a>
+        </div>
+      </div>
+
+      <dl class="findings" aria-label="Key findings">
+        <div><dt>51,962</dt><dd>unserved and underserved broadband locations are in countywide primary care shortage areas, 34.7% of the 149,743 mapped.</dd></div>
+        <div><dt>40</dt><dd>Illinois counties are designated as primary care shortage areas countywide.</dd></div>
+        <div><dt>7,469</dt><dd>of those locations are in Lee County, the most of any shortage county (14.4%).</dd></div>
+        <div><dt>35%</dt><dd>of the 51,962 locations are in three northern counties: Lee, Ogle, and LaSalle.</dd></div>
+        <div><dt>70%</dt><dd>of the 51,962 locations are in the top 10 counties.</dd></div>
+      </dl>
     </div>
   </section>
 
